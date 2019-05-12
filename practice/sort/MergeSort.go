@@ -2,6 +2,9 @@ package main
 
 import "fmt"
 
+
+// mergeSort(p, r) = merge(mergeSort(p...q), mergeSort(q+1.. r))
+// if p >= r --> end
 func MergeSort(arr []int) {
 	arrLen := len(arr)
 	if arrLen <= 1 {
