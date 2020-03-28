@@ -2,72 +2,72 @@ package main
 
 import "fmt"
 
-type ListNode struct {
-	next *ListNode
+type Node struct {
+	next *Node
 	data int
 }
 
 type LinkedList struct {
-	head   *ListNode
+	head   *Node
 	length int
 }
 
 func NewLinkedList() *LinkedList {
 	return &LinkedList{
-		head:   &ListNode{next: nil, data: 0},
+		head:   &Node{next: nil, data: 0},
 		length: 0,
 	}
 }
 
-func (linkedList *LinkedList) InsertNode(node *ListNode) bool {
+func (linkedList *LinkedList) InsertNode(node *Node) bool {
 	if node == nil {
 		return false
 	}
-	tempListNode := linkedList.head
-	for tempListNode != nil && tempListNode.next != nil {
-		tempListNode = tempListNode.next
+	tempNode := linkedList.head
+	for tempNode != nil && tempNode.next != nil {
+		tempNode = tempNode.next
 	}
-	tempListNode.next = node
+	tempNode.next = node
 	linkedList.length = linkedList.length + 1
 	return true
 }
 
-func (linkedList *LinkedList) DeleteNode(node *ListNode) bool {
+func (linkedList *LinkedList) DeleteNode(node *Node) bool {
 
 	if node == nil {
 		return false
 	}
-	tempListNode := linkedList.head
-	for tempListNode.next != node {
-		if tempListNode.next == nil {
+	tempNode := linkedList.head
+	for tempNode.next != node {
+		if tempNode.next == nil {
 			return false
 		}
-		tempListNode = tempListNode.next
+		tempNode = tempNode.next
 	}
-	tempListNode.next = tempListNode.next.next
+	tempNode.next = tempNode.next.next
 	linkedList.length = linkedList.length - 1
 	return true
 
 }
 
 func (linkedList *LinkedList) PrintLinkedList() {
-	tempListNode := linkedList.head
+	tempNode := linkedList.head
 	fmt.Println("LinkedList length = %d", linkedList.length)
-	for tempListNode.next != nil {
-		fmt.Println("node %v", tempListNode.next.data)
-		tempListNode = tempListNode.next
+	for tempNode.next != nil {
+		fmt.Println("node %v", tempNode.next.data)
+		tempNode = tempNode.next
 	}
 }
 
 func main() {
 
 	linkedList := NewLinkedList()
-	var tempListNode *ListNode
+	var tempNode *Node
 	for i := 1; i < 6; i++ {
-		tempListNode = &ListNode{next: nil, data: i}
-		linkedList.InsertNode(tempListNode)
+		tempNode = &Node{next: nil, data: i}
+		linkedList.InsertNode(tempNode)
 	}
 	linkedList.PrintLinkedList()
-	linkedList.DeleteNode(&ListNode{next: nil, data: 100})
+	linkedList.DeleteNode(&Node{next: nil, data: 100})
 	linkedList.PrintLinkedList()
 }

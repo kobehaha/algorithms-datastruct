@@ -2,39 +2,39 @@ package main
 
 import "fmt"
 
-type ListNode struct {
-    pre  *ListNode
-	next *ListNode
+type DoubleLinkedNode struct {
+    pre  *DoubleLinkedNode
+	next *DoubleLinkedNode
 	data int
 }
 
 type DoublyLinkedList struct {
-	head   *ListNode
+	head   *DoubleLinkedNode
 	length int
 }
 
 func NewDoublyLinkedList() *DoublyLinkedList {
 	return &DoublyLinkedList{
-		head:   &ListNode{pre:nil, next: nil, data: 0},
+		head:   &DoubleLinkedNode{pre:nil, next: nil, data: 0},
 		length: 0,
 	}
 }
 
-func (doublyLinkedList *DoublyLinkedList) InsertNode(node *ListNode) bool {
+func (doublyLinkedList *DoublyLinkedList) InsertNode(node *DoubleLinkedNode) bool {
 	if node == nil {
 		return false
 	}
-	tempListNode := doublyLinkedList.head
-	for tempListNode != nil && tempListNode.next != nil {
-		tempListNode = tempListNode.next
+	tempDoubleLinkedNode := doublyLinkedList.head
+	for tempDoubleLinkedNode != nil && tempDoubleLinkedNode.next != nil {
+		tempDoubleLinkedNode = tempDoubleLinkedNode.next
 	}
-	tempListNode.next = node
-    node.pre = tempListNode
+	tempDoubleLinkedNode.next = node
+    node.pre = tempDoubleLinkedNode
 	doublyLinkedList.length = doublyLinkedList.length + 1
 	return true
 }
 
-func (doublyLinkedList *DoublyLinkedList) GetPreNode(node *ListNode) *ListNode {
+func (doublyLinkedList *DoublyLinkedList) GetPreNode(node *DoubleLinkedNode) *DoubleLinkedNode {
    if node == nil {
      return nil 
    }
@@ -43,29 +43,29 @@ func (doublyLinkedList *DoublyLinkedList) GetPreNode(node *ListNode) *ListNode {
 
 }
 
-func (doublyLinkedList *DoublyLinkedList) DeleteNode(node *ListNode) bool {
+func (doublyLinkedList *DoublyLinkedList) DeleteNode(node *DoubleLinkedNode) bool {
 
 	if node == nil {
 		return false
 	}
-	tempListNode := doublyLinkedList.head
-	for tempListNode.next != node {
-		if tempListNode.next == nil {
+	tempDoubleLinkedNode := doublyLinkedList.head
+	for tempDoubleLinkedNode.next != node {
+		if tempDoubleLinkedNode.next == nil {
 			return false
 		}
 
-		tempListNode = tempListNode.next
+		tempDoubleLinkedNode = tempDoubleLinkedNode.next
 	}
 
-    if tempListNode.next.next == nil {
-      tempListNode.next = nil
+    if tempDoubleLinkedNode.next.next == nil {
+      tempDoubleLinkedNode.next = nil
 	  doublyLinkedList.length = doublyLinkedList.length - 1
       return true
     }
 
 
-	tempListNode.next = tempListNode.next.next
-    tempListNode.next.next.pre = tempListNode.next
+	tempDoubleLinkedNode.next = tempDoubleLinkedNode.next.next
+    tempDoubleLinkedNode.next.next.pre = tempDoubleLinkedNode.next
 	doublyLinkedList.length = doublyLinkedList.length - 1
 	return true
 
@@ -73,25 +73,25 @@ func (doublyLinkedList *DoublyLinkedList) DeleteNode(node *ListNode) bool {
 
 
 func (doublyLinkedList *DoublyLinkedList) PrintLinkedList() {
-	tempListNode := doublyLinkedList.head
+	tempDoubleLinkedNode := doublyLinkedList.head
 	fmt.Println("LinkedList length = %d", doublyLinkedList.length)
-	for tempListNode.next != nil {
-		fmt.Println("node %v", tempListNode.next.data)
-		tempListNode = tempListNode.next
+	for tempDoubleLinkedNode.next != nil {
+		fmt.Println("node %v", tempDoubleLinkedNode.next.data)
+		tempDoubleLinkedNode = tempDoubleLinkedNode.next
 	}
 }
 
 func main() {
 
 	doublyLinkedList := NewDoublyLinkedList()
-	var tempListNode *ListNode
+	var tempDoubleLinkedNode *DoubleLinkedNode
 	for i := 1; i < 6; i++ {
-		tempListNode = &ListNode{next: nil, pre: nil, data: i}
-		doublyLinkedList.InsertNode(tempListNode)
+		tempDoubleLinkedNode = &DoubleLinkedNode{next: nil, pre: nil, data: i}
+		doublyLinkedList.InsertNode(tempDoubleLinkedNode)
 	}
 	doublyLinkedList.PrintLinkedList()
-	doublyLinkedList.DeleteNode(tempListNode)
-	doublyLinkedList.DeleteNode(tempListNode.pre)
-	doublyLinkedList.DeleteNode(&ListNode{next: nil, data: 100})
+	doublyLinkedList.DeleteNode(tempDoubleLinkedNode)
+	doublyLinkedList.DeleteNode(tempDoubleLinkedNode.pre)
+	doublyLinkedList.DeleteNode(&DoubleLinkedNode{next: nil, data: 100})
 	doublyLinkedList.PrintLinkedList()
 }

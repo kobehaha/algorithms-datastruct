@@ -2,20 +2,20 @@ package main
 
 import "fmt"
 
-type ListNode struct {
-	next *ListNode
+type CircleListNode struct {
+	next *CircleListNode
 	data int
 }
 
 type CircleLinkedList struct {
-	head   *ListNode
-    tail   *ListNode
+	head   *CircleListNode
+    tail   *CircleListNode
 	length int
 }
 
 func NewCircleLinkedList() *CircleLinkedList {
-    head := &ListNode{next: nil, data:0}
-    tail := &ListNode{next: nil , data: 0}
+    head := &CircleListNode{next: nil, data:0}
+    tail := &CircleListNode{next: nil , data: 0}
     head.next = tail
     tail.next = head
 	return &CircleLinkedList{
@@ -25,57 +25,57 @@ func NewCircleLinkedList() *CircleLinkedList {
 	}
 }
 
-func (circleLinkedList *CircleLinkedList) InsertNode(node *ListNode) bool {
+func (circleLinkedList *CircleLinkedList) InsertNode(node *CircleListNode) bool {
 	if node == nil {
 		return false
 	}
-	tempListNode := circleLinkedList.head
-	for tempListNode.next != circleLinkedList.tail  {
-		tempListNode = tempListNode.next
+	tempCircleListNode := circleLinkedList.head
+	for tempCircleListNode.next != circleLinkedList.tail  {
+		tempCircleListNode = tempCircleListNode.next
 	}
-    tempListNode.next = node
+    tempCircleListNode.next = node
     node.next = circleLinkedList.tail
 	circleLinkedList.length = circleLinkedList.length + 1
 	return true
 }
 
-func (circleLinkedList *CircleLinkedList) DeleteNode(node *ListNode) bool {
+func (circleLinkedList *CircleLinkedList) DeleteNode(node *CircleListNode) bool {
 
 	if node == nil {
 		return false
 	}
-	tempListNode := circleLinkedList.head
-	for tempListNode.next != circleLinkedList.tail {
-        if (tempListNode.next == node){
-	        tempListNode.next = node.next
+	tempCircleListNode := circleLinkedList.head
+	for tempCircleListNode.next != circleLinkedList.tail {
+        if (tempCircleListNode.next == node){
+	        tempCircleListNode.next = node.next
 	        circleLinkedList.length = circleLinkedList.length - 1
             return true
         }
-		tempListNode = tempListNode.next
+		tempCircleListNode = tempCircleListNode.next
 	}
     return false
 
 }
 
 func (circleLinkedList *CircleLinkedList) PrintLinkedList() {
-	tempListNode := circleLinkedList.head
+	tempCircleListNode := circleLinkedList.head
 	fmt.Println("LinkedList length = %d", circleLinkedList.length)
-	for tempListNode.next != circleLinkedList.tail {
-		fmt.Println("node %v", tempListNode.next.data)
-		tempListNode = tempListNode.next
+	for tempCircleListNode.next != circleLinkedList.tail {
+		fmt.Println("node %v", tempCircleListNode.next.data)
+		tempCircleListNode = tempCircleListNode.next
 	}
 }
 
 func main() {
 
 	circleLinkedList := NewCircleLinkedList()
-	var tempListNode *ListNode
+	var tempCircleListNode *CircleListNode
 	for i := 1; i < 6; i++ {
-		tempListNode = &ListNode{next: nil, data: i}
-		circleLinkedList.InsertNode(tempListNode)
+		tempCircleListNode = &CircleListNode{next: nil, data: i}
+		circleLinkedList.InsertNode(tempCircleListNode)
 	}
 	circleLinkedList.PrintLinkedList()
-	circleLinkedList.DeleteNode(tempListNode)
-	circleLinkedList.DeleteNode(&ListNode{next: nil, data: 100})
+	circleLinkedList.DeleteNode(tempCircleListNode)
+	circleLinkedList.DeleteNode(&CircleListNode{next: nil, data: 100})
 	circleLinkedList.PrintLinkedList()
 }
